@@ -1,0 +1,32 @@
+#创建数据表Persons
+
+CREATE TABLE Persons
+(
+Id_P int,
+LastName varchar(255),
+FirstName varchar(255),
+Address varchar(255),
+City varchar(255)
+);
+#插入数据
+INSERT INTO Persons VALUES(1,'gites','tom','ChaoYangQu','Beijing,China');
+#查询数据
+SELECT * FROM Persons;
+#更新数据
+UPDATE Persons SET LastName = 'bush1' WHERE FirstName = 'harry'
+#删除数据
+DELETE FROM Persons WHERE LastName = 'harry1';
+DELETE FROM Persons;
+#过滤重复的列
+SELECT DISTINCT * FROM Persons;
+#对结果集合按照列进行排序
+SELECT * FROM Persons Order By LastName;
+#获取数据库的前几项
+SELECT * FROM Persons limit 10;
+#like %%
+SELECT * FROM Persons WHERE LastName LIKE '%2%';
+SELECT * FROM Persons WHERE LastName NOT  LIKE '%2%';
+#
+
+
+
