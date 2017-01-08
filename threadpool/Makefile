@@ -14,7 +14,7 @@ $(SRC_BIN): $(SRC_OBJ)
 
 obj:$(SRC_OBJ)
 
-tags:
+tag:
 	ctags -R
 
 help:  
@@ -37,3 +37,5 @@ clean:
 
 distclean:  
 	$(RM) $(SRC_OBJ) $(SRC_BIN) $(SRC_BIN).exe tags *~
+
+.PHONY : all obj tag help clean disclean  
