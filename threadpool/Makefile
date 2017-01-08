@@ -1,7 +1,8 @@
 SRC_OBJ = main.o BTCond.o BTMutex.o BTTask.o BTThreadPool.o
 SRC_BIN = target_ThreadPool
+CC = g++
 $(SRC_BIN): $(SRC_OBJ)
-	g++ -o target_ThreadPool  main.o BTCond.o BTMutex.o BTTask.o BTThreadPool.o -lpthread
+	$(CC) -o $@ $^ -lpthread
 
 clean:
-	rm  $(SRC_OBJ) $(SRC_BIN)
+	$(RM)  $(SRC_OBJ) $(SRC_BIN)
