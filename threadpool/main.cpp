@@ -4,7 +4,7 @@
 
 using namespace std;
 
-const int MAX_TASKS = 20000;
+const int MAX_TASKS = 200;
 
 void hello(void* arg)
 {
@@ -15,7 +15,7 @@ void hello(void* arg)
 
 int main(int argc, char* argv[])
 {
-  BTThreadPool tp(10000);
+  BTThreadPool tp(100);
   int ret = tp.initialize_threadpool();
   if (ret == -1) {
     cerr << "Failed to initialize thread pool!" << endl;
