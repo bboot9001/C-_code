@@ -1,12 +1,12 @@
-#ifndef  _H_TASK_H_
-#define  _H_TASK_H_
+#ifndef  _H_BTTASK_H_
+#define  _H_BTTASK_H_
 #include <pthread.h>
 
-class Task
+class BTTask
 {
 public:
-    Task(void (*fn_ptr)(void*), void* arg);
-    ~Task();
+    BTTask(void (*fn_ptr)(void*), void* arg);
+    ~BTTask();
 
 public:
     void operator()();
@@ -19,4 +19,4 @@ private:
 
 
 
-#endif//_H_TASK_H_
+#endif//_H_BTTASK_H_
