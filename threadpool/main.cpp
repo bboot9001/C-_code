@@ -4,17 +4,18 @@
 
 using namespace std;
 
-const int MAX_TASKS = 4;
+const int MAX_TASKS = 20000;
 
 void hello(void* arg)
 {
   int* x = (int*) arg;
+  sleep(2);
   cout << "Hello " << *x << endl;
 }
 
 int main(int argc, char* argv[])
 {
-  BTThreadPool tp(2);
+  BTThreadPool tp(10000);
   int ret = tp.initialize_threadpool();
   if (ret == -1) {
     cerr << "Failed to initialize thread pool!" << endl;
