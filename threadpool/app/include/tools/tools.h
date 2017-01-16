@@ -1,6 +1,4 @@
-extern "C"
-{
-    int add(int addone, int addtwo);
 
-    int sub(int subone ,int subtwo);
-}
+extern "C" int add(int addone, int addtwo);
+
+extern "C" int sub(int subone ,int subtwo);
