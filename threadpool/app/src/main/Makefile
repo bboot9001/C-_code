@@ -1,3 +1,5 @@
+#top Makefile for lib
+#Copyright (C) 2017 wwwang9001@163.com
 CFLAGS += -g -Wall-Werror -O2
 CPPFLAGS += -I.-I./inc -I ../../include
 LDFLAGS +=-lpthread -L../../lib  -ltool -lipc
