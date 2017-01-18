@@ -1,0 +1,31 @@
+#Copyright (C) 2017 wwwang9001@163.com
+
+ifeq ($(DEBUG_SYMBOLS),TRUE)
+	CFLAGS += -g -Wall -Werror -O0
+else
+	CFLAGS += -Wall -Werror -O2
+endif
+
+all:$(SRC_BIN) $(SRC_LIB)
+
+ifneq ($(SRC_BIN),)
+$(SRC_BIN):$(SRC_OBJ)
+	$(CC) -o $@ $^ $(LDFLAGS)
+	cp $@ $(SRC_BASE)/bin
+endif
+
+ifneq ($(SRC_LIB),)
+$(SRC_LIB):$(SRC_OBJ)
+	$(AR) rcs $@ $^
+	cp $@ $(SRC_BASE)/libs
+endif
+
+#clean target 
+clean:
+	$(RM) $(SRC_OBJ) $(SRC_LIB) $(SRC_BIN) $(SRC_BIN).exe
+
+distclean:
+	$(RM) $(SRC_OBJ) $(SRC_LIB) $(SRC_BIN) $(SRC_BIN).exe $(SRC_BASE)/libs/*  $(SRC_BASE)/bin/* $(SRC_BASE)/tags *~
+
+.PHONY : all clean disclean 
+
