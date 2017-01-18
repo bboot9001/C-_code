@@ -2,7 +2,7 @@
 #Copyright (C) 2017 wwwang9001@163.com
 CFLAGS += -g -Wall-Werror -O2
 CPPFLAGS += -I.-I./inc -I ../../include
-LDFLAGS +=-lpthread -L../../lib  -ltool -lipc
+LDFLAGS +=-lpthread -L../../lib  -ltool
 SRC = $(wildcard src/*.cpp)
 # SRC_OBJ = $(patsubst %.cpp, %.o, $(wildcard *.cpp)) 
 SRC_OBJ = $(SRC:.cpp=.o)
