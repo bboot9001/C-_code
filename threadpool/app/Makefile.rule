@@ -24,7 +24,7 @@ endif
 clean:
 	$(RM) $(SRC_OBJ) $(SRC_LIB) $(SRC_BIN) $(SRC_BIN).exe
 
-distclean:
+disclean:
 	$(RM) $(SRC_OBJ) $(SRC_LIB) $(SRC_BIN) $(SRC_BIN).exe $(SRC_BASE)/libs/*  $(SRC_BASE)/bin/* $(SRC_BASE)/tags *~
 
 .PHONY : all clean disclean 
