@@ -6,7 +6,14 @@ else
 	CFLAGS += -Wall -Werror -O2
 endif
 
+ifeq ($(MAKELEVEL), 0)
+all:msg
+else
 all:$(SRC_BIN) $(SRC_LIB)
+endif
+
+msg:
+	@echo "You cannot directily execute this Makefile! This Makefile should calledby toplevel Makefile."
 
 ifneq ($(SRC_BIN),)
 $(SRC_BIN):$(SRC_OBJ)
