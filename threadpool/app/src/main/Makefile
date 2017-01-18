@@ -1,6 +1,11 @@
 #top Makefile for lib
 #Copyright (C) 2017 wwwang9001@163.com
-CFLAGS += -g -Wall-Werror -O2
+
+ifeq ($(DEBUG_SYMBOLS), TRUE)
+CFLAGS += -g -Wall -Werror -O0
+else
+CFLAGS += -Wall -Werror -O2
+endif
 CPPFLAGS += -I.-I./inc -I ../../include
 LDFLAGS +=-lpthread -L../../lib  -ltool
 SRC = $(wildcard src/*.cpp)
@@ -12,7 +17,7 @@ CC = g++
 all:$(SRC_BIN)
 
 $(SRC_BIN): $(SRC_OBJ)
-	$(CC) -o ../../bin/$@ $^ $(LDFLAGS)
+	$(CC) -o ../../bin/$@ $^ $(LDFLAGS) $(CFLAGS)
 
 obj:$(SRC_OBJ)
 

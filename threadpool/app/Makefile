@@ -1,6 +1,9 @@
 #Top Makefile for c++ program
 # Copyright (C) 2017 wwwang9001@163.com
 
+export DEBUG_SYMBOLS = TRUE
+
+
 DIR = src
 MODULES =$(shell ls $(DIR))
 #MODULES = main tools
