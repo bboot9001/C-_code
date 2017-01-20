@@ -1,35 +1,43 @@
 #Top Makefile for c++ program
 # Copyright (C) 2017 wwwang9001@163.com
 
-export DEBUG_SYMBOLS = TRUE
-
-
-DIR = src
-MODULES =$(shell ls $(DIR))
+export DEBUG_SYMBOLS = FALSE
+export PLATFORM = linux
+export MOD_SRC_DIR = ./src
+MODULES =$(shell ls $(MOD_SRC_DIR))
 #MODULES = main tools
+ifeq ($(DEBUG_SYMBOLS), TRUE)  
+		BUILDDIR = ./build/$(PLATFORM)_dbg
+else  
+		BUILDDIR = ./build/$(PLATFORM)
+endif 
 
-all:$(MODULES)
+all : $(BUILDDIR) $(MODULES) 
+
+$(BUILDDIR):  
+		@echo "    Create directory $@ ..."  
+		mkdir -p $(BUILDDIR)/bin $(BUILDDIR)/lib
 
 $(MODULES):
-	$(MAKE) -C $(DIR)/$@
+	$(MAKE) -C $(MOD_SRC_DIR)/$@
 
 main: tools
 
 obj:
 	@for subdir in $(MODULES);\
-	do $(MAKE) -C $(DIR)/$$subdir $@;\
+	do $(MAKE) -C $(MOD_SRC_DIR)/$$subdir $@;\
 	done
 
 
 clean:
 	@for subdir in $(MODULES);\
-	do $(MAKE) -C $(DIR)/$$subdir $@;\
+	do $(MAKE) -C $(MOD_SRC_DIR)/$$subdir $@;\
 	done
 
 
 disclean:
 	@for subdir in $(MODULES);\
-	do $(MAKE) -C $(DIR)/$$subdir $@;\
+	do $(MAKE) -C $(MOD_SRC_DIR)/$$subdir $@;\
 	done
 
 tags:

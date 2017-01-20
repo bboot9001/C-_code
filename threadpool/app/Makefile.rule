@@ -1,38 +1,85 @@
 #Copyright (C) 2017 wwwang9001@163.com
+#if without a platform defined, give value "unknow" to PLATFORM
+ifndef PLATFORM
+	PLATFORM = unknow
+endif
 
+#define a root build directory base on the platform 
+#if without a SRC_BASE defined , just use local src directory
+ifeq ($(SRC_BASE),)
+		BUILDDIR = $(MOD_SRC_DIR)
+		OBJDIR   = $(MOD_SRC_DIR)
+		LIBDIR   = $(MOD_SRC_DIR)
+		BINDIR   = $(MOD_SRC_DIR)
+else
+		ifeq ($(DEBUG_SYMBOLS), TRUE)
+				BUILDDIR = $(SRC_BASE)/build/$(PLATFORM)_dbg
+		else
+				BUILDDIR = $(SRC_BASE)/build/$(PLATFORM)
+		endif
+		OBJDIR  = $(BUILDDIR)/obj
+		LIBDIR  = $(BUILDDIR)/lib
+		BINDIR  = $(BUILDDIR)/bin
+endif
+
+# update compilation flags base on "DEBUG_SYMBOLS"
 ifeq ($(DEBUG_SYMBOLS),TRUE)
 	CFLAGS += -g -Wall -Werror -O0
 else
 	CFLAGS += -Wall -Werror -O2
 endif
 
+VPATH += $(MOD_SRC_DIR)
+SRC_OBJ = $(patsubst %.cpp, $(OBJDIR)/%.o, $(notdir $(SRC_FILES)))
+
 ifeq ($(MAKELEVEL), 0)
 all:msg
 else
-all:$(SRC_BIN) $(SRC_LIB)
+all:lib bin
 endif
+
+lib: $(OBJDIR)  $(LIBDIR)/$(SRC_LIB)
+bin: $(OBJDIR)  $(BINDIR)/$(SRC_BIN)
+
+$(OBJDIR):
+		mkdir -p $@
 
 msg:
 	@echo "You cannot directily execute this Makefile! This Makefile should calledby toplevel Makefile."
 
 ifneq ($(SRC_BIN),)
-$(SRC_BIN):$(SRC_OBJ)
+$(BINDIR)/$(SRC_BIN):$(SRC_OBJ)
 	$(CC) -o $@ $^ $(LDFLAGS)
-	cp $@ $(SRC_BASE)/bin
 endif
 
 ifneq ($(SRC_LIB),)
-$(SRC_LIB):$(SRC_OBJ)
+$(LIBDIR)/$(SRC_LIB):$(SRC_OBJ)
 	$(AR) rcs $@ $^
 	cp $@ $(SRC_BASE)/libs
 endif
 
+$(SRC_OBJ) : $(OBJDIR)/%.o : %.cpp  
+		$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@ 
+
 #clean target 
-clean:
-	$(RM) $(SRC_OBJ) $(SRC_LIB) $(SRC_BIN) $(SRC_BIN).exe
+clean:  
+ifneq ($(SRC_LIB),)  
+		$(RM) $(SRC_OBJ) $(LIBDIR)/$(SRC_LIB)  
+endif
 
-disclean:
-	$(RM) $(SRC_OBJ) $(SRC_LIB) $(SRC_BIN) $(SRC_BIN).exe $(SRC_BASE)/libs/*  $(SRC_BASE)/bin/* $(SRC_BASE)/tags *~
+ifneq ($(SRC_BIN),)  
+		$(RM) $(SRC_OBJ) $(BINDIR)/$(SRC_BIN)  
+endif
 
-.PHONY : all clean disclean 
+#clean target 
+disclean:  
+ifneq ($(SRC_LIB),)  
+		$(RM) $(SRC_OBJ) $(LIBDIR)/$(SRC_LIB) $(SRC_BASE)/libs/* $(SRC_BASE)/tags *~ 
+endif
+
+ifneq ($(SRC_BIN),)  
+		$(RM) $(SRC_OBJ) $(BINDIR)/$(SRC_BIN)  $(SRC_BASE)/libs/* $(SRC_BASE)/tags *~
+endif
+
+.PHONY : all clean 
 

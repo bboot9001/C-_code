@@ -3,7 +3,7 @@
 
 SRC_BASE = ../..
 CFLAGS += 
-CPPFLAGS += -I.-I ./inc -I$(SRC_BASE)/include
+CPPFLAGS += -I. -I./inc -I$(SRC_BASE)/include
 LDFLAGS +=-lpthread  
 SRC_FILES = $(wildcard src/*.cpp)
 # SRC_OBJ = $(patsubst %.cpp, %.o, $(wildcard *.cpp)) 
