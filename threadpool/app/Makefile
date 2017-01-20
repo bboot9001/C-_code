@@ -1,7 +1,7 @@
 #Top Makefile for c++ program
 # Copyright (C) 2017 wwwang9001@163.com
 
-export DEBUG_SYMBOLS = FALSE
+export DEBUG_SYMBOLS = TRUE
 export PLATFORM = linux
 export MOD_SRC_DIR = ./src
 MODULES =$(shell ls $(MOD_SRC_DIR))
